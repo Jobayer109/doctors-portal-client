@@ -4,13 +4,13 @@ const InfoCard = ({ card }) => {
   const { title, description, icon, bgClass } = card;
 
   return (
-    <div className={` rounded-lg ${bgClass}`}>
-      <div className="w-[450px] h-48 flex items-center px-8 ">
-        <img src={icon} alt="" className="w-20" />
-        <div className="ml-5 text-white">
-          <h4 className="font-bold text-lg">{title}</h4>
-          <p>{description}</p>
-        </div>
+    <div className={`card md:card-side sm:items-center md:center p-6 shadow-xl text-white ${bgClass}`}>
+      <figure>
+        <img src={icon} alt="" className="" />
+      </figure>
+      <div className="card-body">
+        <h2 className="card-title">{title}</h2>
+        <p>{description}</p>
       </div>
     </div>
   );
