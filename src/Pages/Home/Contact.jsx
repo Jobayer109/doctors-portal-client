@@ -1,8 +1,17 @@
 import React from "react";
 import appointment from "../../assets/images/appointment.png";
-import ButtonPrimary from "../../components/ButtonPrimary";
 
 const Contact = () => {
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const form = e.target;
+    const email = form.email.value;
+    const subject = form.subject.value;
+    const message = form.message.value;
+    console.log(email, subject, message);
+  }
+
   return (
     <div
       style={{
@@ -18,7 +27,7 @@ const Contact = () => {
       </div>
       <div className="sm:w-full md:w-[30%] lg:w-[30%] mx-auto mt-10">
         {" "}
-        <form>
+        <form onSubmit={handleSubmit}>
           <input
             type="text"
             placeholder="Email"
@@ -39,7 +48,7 @@ const Contact = () => {
             placeholder="Your message"
           ></textarea>
           <div className="text-center mt-8 pb-16">
-            <ButtonPrimary>Submit</ButtonPrimary>
+           <input type="submit" value="Submit" className="btn btn-primary bg-gradient-to-r from-primary to-secondary w-44" />
           </div>
         </form>
       </div>
