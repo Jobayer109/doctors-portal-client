@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import React from "react";
 import { DayPicker } from "react-day-picker";
 import chair from "../../../assets/images/chair.png";
@@ -13,10 +12,8 @@ const AppointBanner = ({ selected, setSelected }) => {
         <div className="hero-content flex-col lg:flex-row-reverse py-32">
           <img src={chair} alt="" className="max-w-md rounded-lg lg:ml-20" />
           <div>
-            <DayPicker mode="single" selected={selected} onSelect={setSelected} />
-            <p>
-              Selected date: <strong>{format(selected, "PP")}</strong>
-            </p>
+            <DayPicker mode="single" selected={selected} onDayClick={setSelected} />
+           
           </div>
         </div>
       </div>
