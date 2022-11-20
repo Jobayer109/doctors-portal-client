@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthProvider";
+import useToken from "../../Hooks/useToken";
 
 const Register = () => {
   const {
@@ -9,17 +10,43 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { createUser, profile, logOut } = useContext(AuthContext);
- 
+  const { createUser, profile } = useContext(AuthContext);
+  const [createdEmail, setCreatedEmail] = useState("");
+  const [token] = useToken(createdEmail);
+  const navigate = useNavigate();
+
+  if (token) {
+    navigate("/");
+  }
 
   const handleSignUp = (data) => {
     createUser(data.email, data.password)
       .then((result) => {
-        profile(data.name, data.photoURL)
-        logOut()
+        profile(data.name, data.photoURL);
+        saveUser(data.name, data.email);
+        // logOut();
         console.log(result.user);
       })
       .catch((error) => console.log(error.message));
+  };
+
+  //Save user to server through user registration
+  const saveUser = (name, email) => {
+    const user = { name, email };
+    fetch(`http://localhost:5000/users`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          setCreatedEmail(email);
+        }
+        console.log(data);
+      });
   };
 
   return (
@@ -36,7 +63,7 @@ const Register = () => {
         <br />
         <input
           type="text"
-        placeholder="photo url"
+          placeholder="photo url"
           {...register("photoURL", { required: true })}
           className="w-full border p-2 rounded-lg mb-2"
         />
@@ -44,7 +71,7 @@ const Register = () => {
         <br />
         <input
           type="email"
-        placeholder="email"
+          placeholder="email"
           {...register("email", { required: true })}
           className="w-full border p-2 rounded-lg mb-2"
         />
@@ -52,7 +79,7 @@ const Register = () => {
         <br />
         <input
           type="password"
-        placeholder="password"
+          placeholder="password"
           {...register("password", { required: true, pattern: /[^A-Za-z0-9_]/, minLength: 8 })}
           className="w-full border p-2 rounded-lg"
         />

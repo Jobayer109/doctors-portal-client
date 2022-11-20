@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthProvider";
 
@@ -7,7 +8,9 @@ const Header = () => {
 
   const handleSignOut = () => {
     logOut()
-      .then((result) => {})
+      .then((result) => {
+        localStorage.clear();
+      })
       .catch((error) => {});
   };
 
@@ -19,25 +22,21 @@ const Header = () => {
       <li>
         <Link to="/appointment">Appointments</Link>
       </li>
+
       <li>
-        <Link to="/reviews">Reviews</Link>
+        <Link to="/dashboard">Dashboard</Link>
       </li>
-      <li>
-        <Link to="/about">About</Link>
-      </li>
-      <li>
-        <Link to="/contact">Contact</Link>
-      </li>
+
       <div>
         {user?.email ? (
           <Link to="/login">
-            <button onClick={handleSignOut} className="btn btn-secondary btn-outline">
+            <button onClick={handleSignOut} className="btn btn-sm mt-1 bg-red-600">
               Sign out
             </button>
           </Link>
         ) : (
           <li>
-            <Link className="btn btn-primary btn-outline" to="/login">
+            <Link className="btn btn-primary btn-sm btn-outline" to="/login">
               Sign in
             </Link>
           </li>
@@ -50,23 +49,10 @@ const Header = () => {
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
+            <FaBars></FaBars>
           </label>
           <ul
-            tabIndex={0}
+            tabIndex={1}
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 "
           >
             {menuItems}
@@ -79,6 +65,9 @@ const Header = () => {
       <div className="navbar-end hidden lg:flex">
         <ul className="menu menu-horizontal p-0 font-medium text-sm">{menuItems}</ul>
       </div>
+      <label tabIndex={2} htmlFor="my-drawer-2" className="btn btn-ghost lg:hidden">
+        <FaBars></FaBars>
+      </label>
     </div>
   );
 };

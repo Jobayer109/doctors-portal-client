@@ -5,7 +5,7 @@ import { AuthContext } from "../../../Contexts/AuthProvider";
 
 const BookingModal = ({ treatment, setTreatment, selected, refetch }) => {
   const { user } = useContext(AuthContext);
-  const { name, slots, _id } = treatment; //treatment means appointment options
+  const { name, slots, _id, price } = treatment; //treatment means appointment options
   const date = format(selected, "PP");
 
   const handleBooking = (e) => {
@@ -25,6 +25,7 @@ const BookingModal = ({ treatment, setTreatment, selected, refetch }) => {
       phone,
       slot,
       email,
+      price,
     };
     console.log(booking);
 
@@ -40,12 +41,11 @@ const BookingModal = ({ treatment, setTreatment, selected, refetch }) => {
         if (data.acknowledged) {
           setTreatment(null);
           toast.success("Booking submitted successfully");
-          refetch()
+          refetch();
         } else {
-          toast.error(data.message)
-          setTreatment(null)
+          toast.error(data.message);
+          setTreatment(null);
         }
-        
       });
   };
 

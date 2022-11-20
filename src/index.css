@@ -13,3 +13,6 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+.rdp-day_selected {
+  background-color: red;
+}

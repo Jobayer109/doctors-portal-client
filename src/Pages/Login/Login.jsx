@@ -1,25 +1,33 @@
 import { GoogleAuthProvider } from "firebase/auth";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthProvider";
-import ForgetModal from "./ForgetModal";
+import useToken from "../../Hooks/useToken";
 
 const Login = () => {
-  const { user, signInUser, googleSignIn } = useContext(AuthContext);
+  const { signInUser, googleSignIn, forget } = useContext(AuthContext);
   const navigate = useNavigate();
   const provider = new GoogleAuthProvider();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+  const [logInUser, setLogInUser] = useState("");
+  const [token] = useToken(logInUser);
+  if (token) {
+    navigate(from, { replace: true });
+  }
   const {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm();
 
   const handleSignIn = (data) => {
     signInUser(data.email, data.password)
       .then((result) => {
+        setLogInUser(data.email);
         console.log(result.user);
       })
       .catch((error) => console.log(error.message));
@@ -30,12 +38,17 @@ const Login = () => {
       .then(() => {})
       .catch((error) => console.log(error.message));
   };
-
-  useEffect(() => {
-    if (user) {
-      navigate(from, { replace: true });
-    }
-  }, [from, navigate, user]);
+  const handleForgetPassword = () => {
+    const email = getValues("email");
+    console.log(email);
+    forget(email)
+      .then(() => {
+        toast.success("Check your email account");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
 
   return (
     <div className="w-[30%] mx-auto my-24 shadow-lg p-10 rounded-lg">
@@ -56,9 +69,9 @@ const Login = () => {
         {errors.password && <span className="text-error text-xs">This field is required</span>}
         <br />
         <div>
-          <a href="#my-modal-2" className="text-secondary font-semibold text-xs">
+          <button onClick={handleForgetPassword} className="text-secondary font-semibold text-xs">
             Forgot password ?
-          </a>
+          </button>
         </div>
         <input type="submit" value="Sign in" className="btn btn-accent w-full mt-4" />
         <p>
@@ -79,7 +92,6 @@ const Login = () => {
           className="btn btn-outline w-full"
         />
       </form>
-      <ForgetModal></ForgetModal>
     </div>
   );
 };
