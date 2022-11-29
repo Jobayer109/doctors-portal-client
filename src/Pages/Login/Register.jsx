@@ -33,7 +33,7 @@ const Register = () => {
   //Save user to server through user registration
   const saveUser = (name, email) => {
     const user = { name, email };
-    fetch(`http://localhost:5000/users`, {
+    fetch(`https://doctors-portal-server-eosin-beta.vercel.app/users`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

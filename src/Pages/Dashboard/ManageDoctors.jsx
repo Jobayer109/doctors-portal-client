@@ -11,7 +11,7 @@ const ManageDoctors = () => {
   } = useQuery({
     queryKey: ["doctors"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/doctors`, {
+      const res = await fetch(`https://doctors-portal-server-eosin-beta.vercel.app/doctors`, {
         authorization: `Bereer ${localStorage.getItem("Token")}`,
       });
       const data = await res.json();
@@ -20,7 +20,7 @@ const ManageDoctors = () => {
   });
 
   const handleDeleteDoctor = (id) => {
-    fetch(`http://localhost:5000/doctors/${id}`, {
+    fetch(`https://doctors-portal-server-eosin-beta.vercel.app/doctors/${id}`, {
       method: "DELETE",
       authorization: `Bereer ${localStorage.getItem("Token")}`,
     })

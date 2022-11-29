@@ -8,11 +8,14 @@ const MyDashboard = () => {
   const { data: appoints } = useQuery({
     queryKey: ["myAppointments", user?.email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/myAppointments?email=${user?.email}`, {
-        headers: {
-          authorization: `Bereer ${localStorage.getItem("Token")}`,
-        },
-      });
+      const res = await fetch(
+        `https://doctors-portal-server-eosin-beta.vercel.app/myAppointments?email=${user?.email}`,
+        {
+          headers: {
+            authorization: `Bereer ${localStorage.getItem("Token")}`,
+          },
+        }
+      );
       const data = res.json();
       return data;
     },

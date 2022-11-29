@@ -5,7 +5,7 @@ import ButtonPrimary from "../../components/ButtonPrimary";
 
 const Banner = () => {
   return (
-    <div className="hero w-[1100px] mx-auto lg:py-36">
+    <div className="hero w-[1100px] mx-auto lg:pb-20">
       <div>
         <img className="h-full bg-gradient-to-t from-gray-100 rounded-md" src={bg} alt="" />
       </div>
@@ -14,7 +14,7 @@ const Banner = () => {
         <div className="">
           <h1 className="text-5xl font-bold">Your New Smile Starts Here</h1>
           <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda <br />  excepturi
+            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda <br /> excepturi
             exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.
           </p>
           <div className="sm:text-center lg:text-start">

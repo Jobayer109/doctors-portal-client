@@ -10,7 +10,7 @@ const CheckoutForm = ({ booking }) => {
   const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/create-payment-intent", {
+    fetch("https://doctors-portal-server-eosin-beta.vercel.app/create-payment-intent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -70,7 +70,7 @@ const CheckoutForm = ({ booking }) => {
         price,
       };
 
-      fetch(`http://localhost:5000/payments`, {
+      fetch(`https://doctors-portal-server-eosin-beta.vercel.app/payments`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
