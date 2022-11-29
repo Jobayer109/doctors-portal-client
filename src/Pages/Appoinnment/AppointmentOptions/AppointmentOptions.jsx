@@ -31,7 +31,7 @@ const AppointmentOptions = ({ selected }) => {
           <progress className="progress w-full"></progress>
         ) : (
           <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-[75%] mx-auto mt-6">
-            {appointments.map((option) => (
+            {appointments?.map((option) => (
               <AppointmentOption
                 key={option._id}
                 option={option}
